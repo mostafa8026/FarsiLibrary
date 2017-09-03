@@ -25,11 +25,24 @@
     <Compile Include="FormatterStringID.cs" />
     <Compile Include="StringID.cs" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="FarsLibrary.pfx" />
+  </ItemGroup>
   <PropertyGroup>
     <ProjectRefType>Win</ProjectRefType>
   </PropertyGroup>
+  <PropertyGroup>
+    <SignAssembly>true</SignAssembly>
+  </PropertyGroup>
+  <PropertyGroup>
+    <AssemblyOriginatorKeyFile>FarsLibrary.pfx</AssemblyOriginatorKeyFile>
+  </PropertyGroup>
+  <PropertyGroup>
+    <DelaySign>false</DelaySign>
+  </PropertyGroup>
   <Import Project="CSharp.targets" />
   <PropertyGroup>
-    <PreBuildEvent>copy "$(SolutionDir)FarsiLibrary.snk" "C:\FarsiLibrary.snk" /y</PreBuildEvent>
+    <PreBuildEvent>
+    </PreBuildEvent>
   </PropertyGroup>
 </Project>

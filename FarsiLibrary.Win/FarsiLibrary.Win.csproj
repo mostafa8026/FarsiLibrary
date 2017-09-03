@@ -13,19 +13,6 @@
     <RootNamespace>FarsiLibrary.Win</RootNamespace>
   </PropertyGroup>
   <ItemGroup>
-    <ProjectReference Include="..\FarsiLibrary.Resources\FarsiLibrary.Resources.csproj">
-      <Project>{E5575624-4B92-4E51-B98B-20F31FE5B5B4}</Project>
-      <Name>FarsiLibrary.Resources</Name>
-      <Private>True</Private>
-    </ProjectReference>
-    <ProjectReference Include="..\FarsiLibrary.Utils\FarsiLibrary.Utils.csproj">
-      <Name>FarsiLibrary.Utils</Name>
-      <Project>{ED29E567-C801-49E9-8C33-CFB66042B07B}</Project>
-      <Package>{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</Package>
-      <Private>True</Private>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
     <Compile Include="..\Solution Items\CommonAssemblyInfo.cs">
       <Link>Properties\CommonAssemblyInfo.cs</Link>
     </Compile>
@@ -36,9 +23,7 @@
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="BaseClasses\DateTimeCollection.cs" />
-    <Compile Include="Controls\DataGridViewFADateTimePickerColumn.cs">
-      <SubType>Component</SubType>
-    </Compile>
+    <Compile Include="Controls\DataGridViewFADateTimePickerColumn.cs" />
     <Compile Include="Controls\FAContainerComboBox.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -156,6 +141,16 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Controls\FADayView.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\FarsiLibrary.Resources\FarsiLibrary.Resources.csproj">
+      <Project>{e5575624-4b92-4e51-b98b-20f31fe5b5b4}</Project>
+      <Name>FarsiLibrary.Resources</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\FarsiLibrary.Utils\FarsiLibrary.Utils.csproj">
+      <Project>{ed29e567-c801-49e9-8c33-cfb66042b07b}</Project>
+      <Name>FarsiLibrary.Utils</Name>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
     <ProjectRefType>Win</ProjectRefType>
