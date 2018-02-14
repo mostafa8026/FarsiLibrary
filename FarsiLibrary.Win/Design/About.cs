@@ -2,7 +2,7 @@
 using System.ComponentModel;
 using System.Timers;
 using System.Windows.Forms;
-using FarsiLibrary.Resources;
+using FarsiLibrary.Localization;
 using Timer=System.Timers.Timer;
 
 namespace FarsiLibrary.Win.Design
@@ -134,7 +134,7 @@ namespace FarsiLibrary.Win.Design
             this.lblCopyright.RightToLeft = System.Windows.Forms.RightToLeft.No;
             this.lblCopyright.Size = new System.Drawing.Size(273, 18);
             this.lblCopyright.TabIndex = 4;
-            this.lblCopyright.Text = "Web Site : http://www.hightech.ir";
+            this.lblCopyright.Text = "Web Site : http://www.seesharpsoftware.com.au";
             // 
             // label3
             // 

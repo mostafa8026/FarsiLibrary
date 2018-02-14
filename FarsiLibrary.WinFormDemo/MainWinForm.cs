@@ -1,14 +1,10 @@
 using System;
+using System.Collections.Generic;
 using System.Drawing;
-using System.Globalization;
 using System.Linq;
-using System.Reflection;
-using System.Threading;
 using System.Windows.Forms;
-using FarsiLibrary.Resources;
 using FarsiLibrary.Win.Design;
 using FarsiLibrary.WinFormDemo.Demo;
-using FarsiLibrary.WinFormDemo.Pages;
 
 namespace FarsiLibrary.WinFormDemo
 {
@@ -35,25 +31,32 @@ namespace FarsiLibrary.WinFormDemo
         private void FindAllDemos()
         {
             var demos = (from type in this.GetType().Assembly.GetExportedTypes()
-                         where typeof(IDemoPage).IsAssignableFrom(type) && 
+                         where typeof(IDemoPage).IsAssignableFrom(type) &&
                                type.IsAbstract == false &&
                                type != typeof(DemoBase)
-                         select type).ToList();
+                         select type)
+                         .ToList();
+
+            var pages = new List<IDemoPage>();
 
             foreach (var demo in demos)
             {
                 var demoForm = Activator.CreateInstance(demo) as IDemoPage;
-                RegisterDemos(demoForm);
+                pages.Add(demoForm);
             }
+
+            RegisterDemos(pages);
         }
 
-        private void RegisterDemos(IDemoPage demo)
+        private void RegisterDemos(IList<IDemoPage> demos)
         {
-            if(demo.Title == null)
-                throw new ApplicationException(string.Format("page has no title : {0}", demo.GetType()));
+            var ordered = demos.OrderByDescending(x => x.IsNew).ThenBy(x => x.Title).ToList();
 
-            var item = new DemoItem() {Page = demo};
-            listBoxDemos.Items.Add(item);
+            foreach (var page in ordered)
+            {
+                var item = new DemoItem(page);
+                listBoxDemos.Items.Add(item);
+            }
         }
 
         #endregion
@@ -66,50 +69,6 @@ namespace FarsiLibrary.WinFormDemo
 
             splitContainerView.Panel2.Controls.Clear();
             splitContainerView.Panel2.Controls.Add(item.Control);
-        }
-
-        #endregion
-
-        #region EventHandlers
-
-        private void btnAbout_Click(object sender, EventArgs e)
-        {
-        }
-
-        private void btnBindingBusinessObj_Click(object sender, EventArgs e)
-        {
-            CultureInfo oldValue = Thread.CurrentThread.CurrentUICulture;
-            Thread.CurrentThread.CurrentCulture = new CultureInfo("fa-IR");
-            Thread.CurrentThread.CurrentUICulture = Thread.CurrentThread.CurrentCulture;
-            
-            BindingToList form = new BindingToList();
-            //form.ShowDialog(this);
-
-            Thread.CurrentThread.CurrentCulture = oldValue;
-            Thread.CurrentThread.CurrentUICulture = oldValue;
-        }
-
-        private void btnValidation_Click(object sender, EventArgs e)
-        {
-            CultureInfo oldValue = Thread.CurrentThread.CurrentUICulture;
-            Thread.CurrentThread.CurrentCulture = new CultureInfo("fa-IR");
-            Thread.CurrentThread.CurrentUICulture = Thread.CurrentThread.CurrentCulture;
-
-            DateValidation form = new DateValidation();
-            //form.ShowDialog(this);
-
-            Thread.CurrentThread.CurrentCulture = oldValue;
-            Thread.CurrentThread.CurrentUICulture = oldValue;
-        }
-
-        private void btnGridView_Click(object sender, EventArgs e)
-        {
-            FALocalizeManager.Instance.CustomCulture = FALocalizeManager.Instance.FarsiCulture;
-            
-            GridViewColumnEditor form = new GridViewColumnEditor();
-            //form.ShowDialog(this);
-
-            FALocalizeManager.Instance.CustomCulture = null;
         }
 
         #endregion
@@ -143,28 +102,48 @@ namespace FarsiLibrary.WinFormDemo
 
         private void listBoxDemos_DrawItem(object sender, DrawItemEventArgs e)
         {
-            var g = e.Graphics;
-            var r = e.Bounds;
             var item = listBoxDemos.Items[e.Index] as DemoItem;
-
             if(item == null)
                 return;
 
             e.DrawBackground();
-            
-            if(item.Page.IsNew)
+            DrawNewImage(e, item);
+            DrawString(e, item);
+        }
+
+        private static void DrawString(DrawItemEventArgs e, DemoItem item)
+        {
+            var g = e.Graphics;
+            var r = e.Bounds;
+
+            using (var brush = new SolidBrush(e.ForeColor))
+            {
+                var rectangle = item.Page.IsNew ? new Rectangle(r.X + 16, r.Y, r.Width, r.Height) : r; 
+                g.DrawString(item.Page.Title, e.Font, brush, rectangle);
+            }
+        }
+
+        private static void DrawNewImage(DrawItemEventArgs e, DemoItem item)
+        {
+            var g = e.Graphics;
+            var r = e.Bounds;
+
+            if (item.Page.IsNew)
             {
                 g.DrawImage(Properties.Resources.NewIcon, new Rectangle(r.X, r.Y, 16, 16));
-                //r.Width -= 16;
-                r.X += 16;
-            }
-
-            using(var brush = new SolidBrush(e.ForeColor))
-            {
-                g.DrawString(item.Page.Title, e.Font, brush, r);
             }
         }
 
         #endregion
+
+        private void listBoxDemos_MouseDoubleClick(object sender, MouseEventArgs e)
+        {
+            var itemIndex = listBoxDemos.IndexFromPoint(e.Location);
+            if(itemIndex < 0) return;
+
+            var item = listBoxDemos.Items[itemIndex] as DemoItem;
+
+            ShowPage(item);
+        }
     }
 }

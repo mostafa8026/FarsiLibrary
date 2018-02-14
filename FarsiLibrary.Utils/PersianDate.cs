@@ -1,11 +1,11 @@
 ﻿using System;
 using System.Collections;
 using System.ComponentModel;
-using FarsiLibrary.Resources;
 using FarsiLibrary.Utils.Exceptions;
 using System.Collections.Generic;
 using FarsiLibrary.Utils.Internals;
 using System.Globalization;
+using FarsiLibrary.Localization;
 
 namespace FarsiLibrary.Utils
 {
@@ -48,7 +48,6 @@ namespace FarsiLibrary.Utils
         private int second;
         private int millisecond;
         private readonly TimeSpan time;
-        private readonly PersianDateTimeFormatInfo formatting;
         private static readonly PersianCalendar pc;
 
         [NonSerialized]
@@ -78,11 +77,19 @@ namespace FarsiLibrary.Utils
         /// <summary>
         /// Current date/time in PersianDate format.
         /// </summary>
-        [Browsable(false)]
         [Description("Current date/time in PersianDate format")]
         public static PersianDate Now
         {
             get { return PersianDateConverter.ToPersianDate(DateTime.Now); }
+        }
+
+        /// <summary>
+        /// Current date in PersianDate format.
+        /// </summary>
+        [Description("Todays date in PersianDate format")]
+        public static PersianDate Today
+        {
+            get { return PersianDateConverter.ToPersianDate(DateTime.Today); }
         }
 
         /// <summary>
@@ -993,7 +1000,7 @@ namespace FarsiLibrary.Utils
         {
             if (format == null) format = "G";
             int smallhour = (Hour > 12) ? Hour - 12 : Hour;
-            string designator = Hour > 12 ? PersianDateTimeFormatInfo.PMDesignator : PersianDateTimeFormatInfo.AMDesignator;
+            string designator = Hour >= 12 ? PersianDateTimeFormatInfo.PMDesignator : PersianDateTimeFormatInfo.AMDesignator;
             
             if (formatProvider != null)
             {

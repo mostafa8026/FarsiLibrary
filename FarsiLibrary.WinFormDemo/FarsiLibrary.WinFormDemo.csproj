@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="4.0">
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="12.0">
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
@@ -10,6 +10,18 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>FarsiLibrary.WinFormDemo</RootNamespace>
     <AssemblyName>FarsiLibrary.WinFormDemo</AssemblyName>
+    <OutputPath>..\binaries\</OutputPath>
+    <TargetFrameworkVersion>v4.6</TargetFrameworkVersion>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup>
+    <SignAssembly>true</SignAssembly>
+  </PropertyGroup>
+  <PropertyGroup>
+    <AssemblyOriginatorKeyFile>..\FarsiLibrary.snk</AssemblyOriginatorKeyFile>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x86'">
+    <UseVSHostingProcess>false</UseVSHostingProcess>
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="..\Solution Items\CommonAssemblyInfo.cs">
@@ -29,11 +41,23 @@
     <Compile Include="Pages\CustomFormattingAndValidating.Designer.cs">
       <DependentUpon>CustomFormattingAndValidating.cs</DependentUpon>
     </Compile>
-    <Compile Include="Pages\DevExpressIntegration.cs">
+    <Compile Include="Pages\DevExpressCalendar.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Pages\DevExpressIntegration.Designer.cs">
-      <DependentUpon>DevExpressIntegration.cs</DependentUpon>
+    <Compile Include="Pages\DevExpressCalendar.Designer.cs">
+      <DependentUpon>DevExpressCalendar.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\DevExpressEditor.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Pages\DevExpressEditor.Designer.cs">
+      <DependentUpon>DevExpressEditor.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\DevExpressGridViewEditor.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Pages\DevExpressGridViewEditor.Designer.cs">
+      <DependentUpon>DevExpressGridViewEditor.cs</DependentUpon>
     </Compile>
     <Compile Include="Pages\ThemeAndFocusStyle.cs">
       <SubType>UserControl</SubType>
@@ -90,10 +114,10 @@
     <Compile Include="Pages\ConvertNumbersToWord.Designer.cs">
       <DependentUpon>ConvertNumbersToWord.cs</DependentUpon>
     </Compile>
-    <Compile Include="Pages\BindingToDataSet.cs">
+    <Compile Include="Demo\BindingToDataSet.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Pages\BindingToDataSet.Designer.cs">
+    <Compile Include="Demo\BindingToDataSet.Designer.cs">
       <DependentUpon>BindingToDataSet.cs</DependentUpon>
     </Compile>
     <Compile Include="Pages\BindingToList.cs">
@@ -114,11 +138,11 @@
     <Compile Include="Pages\DateValidation.Designer.cs">
       <DependentUpon>DateValidation.cs</DependentUpon>
     </Compile>
-    <Compile Include="Pages\GridViewColumnEditor.cs">
+    <Compile Include="Pages\DataGridViewColumnEditor.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Pages\GridViewColumnEditor.Designer.cs">
-      <DependentUpon>GridViewColumnEditor.cs</DependentUpon>
+    <Compile Include="Pages\DataGridViewColumnEditor.Designer.cs">
+      <DependentUpon>DataGridViewColumnEditor.cs</DependentUpon>
     </Compile>
     <Compile Include="Pages\UsingThemeManager.cs">
       <SubType>UserControl</SubType>
@@ -193,8 +217,14 @@
     <EmbeddedResource Include="Pages\CustomFormattingAndValidating.resx">
       <DependentUpon>CustomFormattingAndValidating.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Pages\DevExpressIntegration.resx">
-      <DependentUpon>DevExpressIntegration.cs</DependentUpon>
+    <EmbeddedResource Include="Pages\DevExpressCalendar.resx">
+      <DependentUpon>DevExpressCalendar.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Pages\DevExpressEditor.resx">
+      <DependentUpon>DevExpressEditor.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Pages\DevExpressGridViewEditor.resx">
+      <DependentUpon>DevExpressGridViewEditor.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Pages\ThemeAndFocusStyle.resx">
       <DependentUpon>ThemeAndFocusStyle.cs</DependentUpon>
@@ -231,7 +261,7 @@
       <SubType>Designer</SubType>
       <DependentUpon>ConvertNumbersToWord.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Pages\BindingToDataSet.resx">
+    <EmbeddedResource Include="Demo\BindingToDataSet.resx">
       <SubType>Designer</SubType>
       <DependentUpon>BindingToDataSet.cs</DependentUpon>
     </EmbeddedResource>
@@ -247,9 +277,9 @@
       <SubType>Designer</SubType>
       <DependentUpon>DateValidation.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Pages\GridViewColumnEditor.resx">
+    <EmbeddedResource Include="Pages\DataGridViewColumnEditor.resx">
       <SubType>Designer</SubType>
-      <DependentUpon>GridViewColumnEditor.cs</DependentUpon>
+      <DependentUpon>DataGridViewColumnEditor.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Pages\UsingThemeManager.resx">
       <SubType>Designer</SubType>
@@ -291,6 +321,7 @@
       <SubType>Designer</SubType>
       <DependentUpon>MainWinForm.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Properties\licenses.licx" />
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
@@ -303,6 +334,7 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <None Include="app.config" />
     <None Include="Resources\Employee.xml" />
   </ItemGroup>
   <ItemGroup>
@@ -323,17 +355,17 @@
     <None Include="Resources\OK.bmp" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\FarsiLibrary.Resources\FarsiLibrary.Resources.csproj">
+    <ProjectReference Include="..\FarsiLibrary.Localization\FarsiLibrary.Localization.csproj">
       <Project>{E5575624-4B92-4E51-B98B-20F31FE5B5B4}</Project>
-      <Name>FarsiLibrary.Resources</Name>
+      <Name>FarsiLibrary.Localization</Name>
     </ProjectReference>
     <ProjectReference Include="..\FarsiLibrary.Utils\FarsiLibrary.Utils.csproj">
       <Project>{ED29E567-C801-49E9-8C33-CFB66042B07B}</Project>
       <Name>FarsiLibrary.Utils</Name>
     </ProjectReference>
-    <ProjectReference Include="..\FarsiLibrary.Win.External\FarsiLibrary.Win.External.csproj">
-      <Project>{240A0D2C-5E44-4C05-8995-EE63E4AE9D0E}</Project>
-      <Name>FarsiLibrary.Win.External</Name>
+    <ProjectReference Include="..\FarsiLibrary.Win.DevExpress.16.1\FarsiLibrary.Win.DevExpress.16.1.csproj">
+      <Project>{d0e90437-9eea-4a34-bf68-093d1717b76d}</Project>
+      <Name>FarsiLibrary.Win.DevExpress.16.1</Name>
     </ProjectReference>
     <ProjectReference Include="..\FarsiLibrary.Win\FarsiLibrary.Win.csproj">
       <Project>{83C3AEB8-5322-4DB6-9E7E-4BF8A319DCE7}</Project>
@@ -341,27 +373,32 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Reference Include="DevExpress.Data.v9.2, Version=9.2.6.0, Culture=neutral, PublicKeyToken=def7c46cace23f8f, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\lib\DevExpress\DevExpress.Data.v9.2.dll</HintPath>
-    </Reference>
-    <Reference Include="DevExpress.Utils.v9.2, Version=9.2.6.0, Culture=neutral, PublicKeyToken=def7c46cace23f8f, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\lib\DevExpress\DevExpress.Utils.v9.2.dll</HintPath>
-    </Reference>
-    <Reference Include="DevExpress.XtraEditors.v9.2, Version=9.2.6.0, Culture=neutral, PublicKeyToken=def7c46cace23f8f, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\lib\DevExpress\DevExpress.XtraEditors.v9.2.dll</HintPath>
-    </Reference>
-    <Reference Include="System.Data.DataSetExtensions">
-      <RequiredTargetFramework>3.5</RequiredTargetFramework>
-    </Reference>
-  </ItemGroup>
-  <ItemGroup>
     <None Include="Resources\new.png" />
   </ItemGroup>
-  <PropertyGroup>
-    <ProjectRefType>Win</ProjectRefType>
-  </PropertyGroup>
-  <Import Project="CSharp.targets" />
+  <ItemGroup>
+    <Reference Include="DevExpress.Data.v16.1, Version=16.1.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
+    <Reference Include="DevExpress.Utils.v16.1, Version=16.1.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
+    <Reference Include="DevExpress.XtraEditors.v16.1, Version=16.1.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
+    <Reference Include="DevExpress.XtraGrid.v16.1, Version=16.1.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\lib\DevExpress\DevExpress.XtraGrid.v16.1.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Data.Linq" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Drawing" />
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="System.Design" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Drawing.Design" />
+    <Reference Include="System.Security" />
+    <Reference Include="System.Windows.Forms" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -19,7 +19,6 @@ namespace FarsiLibrary.Win.Controls
 
         private static readonly Type valueType = typeof (DateTime);
         private static readonly Type editType = typeof (DataGridViewFADateTimePickerEditor);
-        private FormatInfoTypes format;
         
         #endregion
 
@@ -201,7 +200,7 @@ namespace FarsiLibrary.Win.Controls
 
 		private PersianDate GetParsedDate(string formattedValue)
 		{
-			if (CultureHelper.IsBuiltinFarsiCulture)
+			if (CultureHelper.IsFarsiCulture())
 			{
 				return PersianDate.Parse(formattedValue);
 			}
@@ -270,7 +269,7 @@ namespace FarsiLibrary.Win.Controls
                 return string.Empty;
             }
 
-            return SelectedDateTime.Value.ToString("G");
+            return SelectedDateTime?.ToString("G");
         }
 
         ///<summary>
